@@ -23,11 +23,6 @@ credit_card_data = pd.get_dummies(credit_card_data, columns=['Class'])
 
 x=credit_card_data.iloc[:,:-2].values
 
-# Standardizing independent variables
-
-scaler=StandardScaler()
-x[:,:]=scaler.fit_transform(x[:,:])
-
 # Getting y data from pandas dataframe and transforming x and y into numpy arrays with formats of float32
 
 y = credit_card_data.iloc[:,-1].values
@@ -35,6 +30,12 @@ y = credit_card_data.iloc[:,-1].values
 # Train-test split
 
 x_train, x_test, y_train, y_test = train_test_split(x,y,test_size=0.2,random_state=0)
+
+# Standardizing independent variables
+
+scaler=StandardScaler()
+x_train[:,:]=scaler.fit_transform(x_train[:,:])
+x_test[:,:]=scaler.fit_transform(x_test[:,:])
 
 # Since fraudulent data are sparse, we weight fraudulent outcomes so that the model will give preference to these data
 
